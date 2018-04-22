@@ -27,6 +27,9 @@ class TasksController extends Controller
     }
 
     public function store(Request $req){
+      $this->validate($req,[
+          'content' => 'required|max:191'
+      ]);
       $task = new Task;
 
       $task->content = $req->content;
@@ -55,5 +58,5 @@ class TasksController extends Controller
 
       return redirect('/');
     }
-    
+
 }
