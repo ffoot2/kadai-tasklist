@@ -28,11 +28,13 @@ class TasksController extends Controller
 
     public function store(Request $req){
       $this->validate($req,[
-          'content' => 'required|max:191'
+          'content' => 'required|max:191',
+          'store' => 'required|max:10'
       ]);
       $task = new Task;
 
       $task->content = $req->content;
+      $task->status = $req->status;
       $task->save();
 
       return redirect('/');
@@ -45,8 +47,15 @@ class TasksController extends Controller
     }
 
     public function update(Request $req, $id){
+      $this->validate($req,[
+          'content' => 'required|max:191',
+          'store' => 'required|max:10'
+      ]);
+      
       $task = Task::find($id);
+
       $task->content = $req->content;
+      $task->status = $req->status;
       $task->save();
 
       return redirect('/');
